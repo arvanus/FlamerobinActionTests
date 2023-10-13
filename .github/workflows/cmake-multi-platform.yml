@@ -34,7 +34,7 @@ jobs:
       run:  git clone --recursive --branch v3.2.2.1 --depth 1 https://github.com/wxWidgets/wxWidgets.git
       
     - name: replace /MD for /MT
-      run: ^
+      run: 
              $xmls = (Get-ChildItem -Path "wxWidgets\build\msw" -Recurse -Filter *.vcxproj).FullName;
              foreach ($xml in $xmls) {
                echo $xml
