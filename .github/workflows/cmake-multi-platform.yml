@@ -30,17 +30,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    #- name: clone wxWidgets
-    #  run:  git clone --recursive --branch v3.2.2.1 --depth 1 https://github.com/wxWidgets/wxWidgets.git
+    - name: clone wxWidgets
+      run:  git clone --recursive --branch v3.2.2.1 --depth 1 https://github.com/wxWidgets/wxWidgets.git
       
-    #- name: replace /MD for /MT, p1
-    #  run: $xmls = (Get-ChildItem -Path "wxWidgets\build\msw" -Recurse -Filter *.vcxproj).FullName
-    #- name: replace /MD for /MT, p2
-    #  run: |
-    #         foreach ($xml in $xmls) {
-    #           (Get-Content $xml).replace("MultiThreadedDebugDLL", "MultiThreadedDebug") | Set-Content $xml
-    #           (Get-Content $xml).replace("MultiThreadedDLL", "MultiThreaded") | Set-Content $xml
-    #         }
+    - name: replace /MD for /MT, p1
+      run: $xmls = (Get-ChildItem -Path "wxWidgets\build\msw" -Recurse -Filter *.vcxproj).FullName
+    - name: replace /MD for /MT, p2
+      run: |
+             foreach ($xml in $xmls) {
+               (Get-Content $xml).replace("MultiThreadedDebugDLL", "MultiThreadedDebug") | Set-Content $xml
+               (Get-Content $xml).replace("MultiThreadedDLL", "MultiThreaded") | Set-Content $xml
+             }
 
     - name: Load msbuild
       shell: cmd
