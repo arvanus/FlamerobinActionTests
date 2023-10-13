@@ -1,0 +1,151 @@
+===================================
+== FlameRobin Build Instructions ==
+===================================
+
+Below are build instructions for FlameRobin on all supported build environments.
+
+--------------------------
+-- Common to all builds --
+--------------------------
+
+-- General Requirements
+
+Required:
+ * FirebirdSQL, the client libs (e.g. fbclient.dll) at a minimum, but the whole
+   server install to test with - https://www.firebirdsql.org/
+ * A C++14 compiler (Visual Studio on Windows, G++ on Linux, others may work but untested)
+   https://visualstudio.microsoft.com/ https://gcc.gnu.org/
+ * The wxWidgets library - https://www.wxwidgets.org/
+ * CMake - https://cmake.org/
+ * git - https://git-scm.com/
+Optional:
+ * GitHub desktop app (for interacting with this project) - https://github.com/
+ * TortoiseGit (Windows extension) - https://tortoisegit.org/
+
+-- Notes
+
+FR must be built with the same settings for debug/release etc.  as the
+wxWidgets library (Unicode build is required). Failing to do so will usually
+lead to compile or link errors. This does not apply completely to Linux/GCC
+build, as you can build wx in release mode and FlameRobin in debug mode - in
+case you just want to debug FR code, and not code of wxWidgets.
+
+If you have problems building FR, please contact the development team:
+https://github.com/mariuz/flamerobin
+
+-----------------------------------------
+-- MSW - Visual C++ Build Instructions --
+-----------------------------------------
+
+First, make sure you have git and CMake installed and aviable in your PATH.
+The installers for these utils should give you that option.
+
+Install Visual Studio with C++ support, and make sure you can find the 'Native
+Tool Command Prompt' in your start menu (there will be versions of x86 and x64)
+
+We're going to assume there's a 'C:\projects' directory where all the relevant
+files are going to be placed, but any location that suits your install should
+be fine (avoid spaces in dir/files names)
+
+-- Build wxWidgets
+
+(written for wxWidgets 3.1 series, there may be newer versions)
+
+ 1. Download the wxWdigets source zip: https://www.wxwidgets.org/downloads/
+ 2. Unzip file to a sensible location (e.g. C:\projects\wxWidgets-3.1.4)
+    Keep a note of this, as it will be the WXDIR used to build FlameRobin
+ 3. Start the Visual Studio 'Native Tool Command Prompt'
+ 4. CD to the wxWidgets root
+    > cd C:\projects\wxWidgets-3.1.4
+ 5. CD to the Windows build sub-dir
+    > cd build\msw
+ 6. Build the static debug lib
+    > nmake /f makefile.vc RUNTIME_LIBS=static
+ 7. Build the static release lib
+    > nmake /f makefile.vc BUILD=release RUNTIME_LIBS=static
+
+That's it for wxWidgets, until you need a newer version.
+
+-- Setup FlameRobin build (using CMake GUI)
+
+ 1. Download the FlameRobin source code
+    * Plain git on command line:
+      > cd c:\projects
+      > git clone https://github.com/mariuz/flamerobin.git
+    * GitHub, TortoiseGit follow relevant instructions.
+ 2. Run the CMake GUI
+    a. Point 'Where is the source code' to the FlameRobin root
+       (C:\projects\flamerobin)
+    b. Point 'Where to build the binaries' to a 'build' sub-dir that you need
+       to create
+       (C:\projects\flamerobin\build)
+    c. Click 'Add Entry' (button to the right of window)
+       * Give it the name WXDIR
+       * Set Type to 'PATH'
+	  * Select the root dir of wxWdigets
+         (C:\projects\wxWidgets-3.1.4)
+    d. Click on 'Configure', you'll be prompted for compiler type
+       * Select your version of Visual Studio
+       * Select the platform (Win32 or x64)
+    e. Click on 'Generate' to create the Visual Studio project files
+    f. You can now click on 'Open Project' to launch Visual Studio or you can
+       directly open the build/flamerobin.sln file that was created
+ 3. Try building the solution : <ctrl>+<shift>+B
+ 4. Run with <ctrl>+<F5>
+
+-- Setup FlameRobin build (using command line)
+
+ 1. > cd C:\projects
+ 2. > git clone https://github.com/mariuz/flamerobin.git
+ 3. > cd flamerobin
+ 4. > mkdir build
+ 5. > cd build
+ 6. > cmake -DWXDIR:PATH=C:\projects\wxWidgets-3.1.4 ..
+ 7. Open resulting flamerobin.sln file in Visual Studio, or from VS command
+    prompt, build with:
+    > devenv flamerobin.sln /release
+
+You can delete the whole build directory and re-run CMake as above to make a
+clean start, if needed.
+
+Different version of wxWidgets or platform builds (x86, x64) can be created to
+suit your needs at the same time, just use different build dirs (e.g
+build-wx302-x64). Recomended to start the name with 'build' as the .gitignore
+file will be set to ignore those directories.
+
+---------------------------------------------------
+-- Unix (Debian and related; Ubuntu, Mint, etc.) --
+---------------------------------------------------
+
+Assumes a 'project' dir in you home directory, change to suit
+
+ 1. Setup the tools and libs needed:
+    $ sudo apt-get install build-essential git cmake firebird-dev libwxgtk3.0-gtk3-dev
+    (wxWidgets version may change in the future, update to match)
+ 2. $ cd ~/project
+ 3. $ git clone https://github.com/mariuz/flamerobin.git
+ 4. $ cd flamerobin
+ 5. $ mkdir build
+ 6. $ cd build
+ 7. $ cmake ..
+ 8. $ make
+ 9. To run FlameRobin use the run_flamerobin.sh script. This sets up an
+    environment variable that points the FlameRobin app to the build directory
+    which contains various sub-dir used by the app
+    $ ./run_flamerobin.sh
+
+-- Install support
+
+The usual 'make install' will work as normal, you may want to configure the
+build for 'release':
+ $ cmake -DCMAKE_BUILD_TYPE=Release ..
+ $ make
+ $ sudo make install
+
+------------
+-- Mac OS --
+------------
+
+TODO: We currently have no MacOS devs. The UNIX build above may work, with some
+      tweaks.
+
