@@ -38,6 +38,7 @@ jobs:
     - name: replace /MD for /MT, p2
       run: |
              foreach ($xml in $xmls) {
+               echo $xml
                (Get-Content $xml).replace("MultiThreadedDebugDLL", "MultiThreadedDebug") | Set-Content $xml
                (Get-Content $xml).replace("MultiThreadedDLL", "MultiThreaded") | Set-Content $xml
              }
