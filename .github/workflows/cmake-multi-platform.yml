@@ -32,8 +32,12 @@ jobs:
       id: cache-primes
       uses: actions/cache@v3
       with:
-        path: wxWidgets
+        path: |
+            ./wxWidgets
+            ./build32
+            ./build64
         key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
     
     - uses: actions/checkout@v3
 
@@ -52,12 +56,12 @@ jobs:
     - name: Build wxWidgets x86
       shell: cmd
       run: |
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:PlatformTarget=x86
+        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=Win32
         
     - name: Build wxWidgets x64
       shell: cmd
       run: |
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:PlatformTarget=x64
+        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 
     - name: Build Flamerobin x86
