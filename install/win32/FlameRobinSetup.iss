@@ -93,15 +93,15 @@ Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription
 [Files]
 #ifdef DEBUG
 #ifdef X64VERSION
-Source: ..\..\vcud\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: Is64BitInstallMode
+Source: ..\..\Build64\Release\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: Is64BitInstallMode
 #else
-Source: ..\..\vcud\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: not Is64BitInstallMode
+Source: ..\..\Build32\Release\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: not Is64BitInstallMode
 #endif
 #else
 #ifdef X64VERSION
-Source: ..\..\vcu\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: Is64BitInstallMode
+Source: ..\..\Build64\Release\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: Is64BitInstallMode
 #else
-Source: ..\..\vcu\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: not Is64BitInstallMode
+Source: ..\..\Build32\Release\flamerobin.exe; DestDir: {app}; Flags: ignoreversion; Check: not Is64BitInstallMode
 #endif
 #endif
 Source: ..\..\docs\*.*; Excludes: flamerobin.1; DestDir: {app}\docs; Flags: ignoreversion
