@@ -77,4 +77,10 @@ jobs:
       run: >
         cmake -S .\ -B .\Build64 -A x64 -DWXDIR=wxWidgets &&
         cmake --build .\Build64 --config Release -j 8
-        
+
+    - name: Innosetup 
+      run: >
+        ISCC.exe install\win32\FlameRobinSetup.iss
+    - name: Innosetup64
+      run: >
+        ISCC.exe install\win32\FlameRobinSetup.iss
