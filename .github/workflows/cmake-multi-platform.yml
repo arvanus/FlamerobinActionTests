@@ -35,10 +35,10 @@ jobs:
       
     - name: replace /MD for /MT
       run: 
-             $xmls = (Get-ChildItem -Path "wxWidgets\build\msw" -Recurse -Filter *.vcxproj).FullName &&
+             $xmls = (Get-ChildItem -Path "wxWidgets\build\msw" -Recurse -Filter *.vcxproj).FullName ;
              foreach ($xml in $xmls) {
-               echo $xml
-               (Get-Content $xml).replace("MultiThreadedDebugDLL", "MultiThreadedDebug") | Set-Content $xml
+               echo $xml;
+               (Get-Content $xml).replace("MultiThreadedDebugDLL", "MultiThreadedDebug") | Set-Content $xml ;
                (Get-Content $xml).replace("MultiThreadedDLL", "MultiThreaded") | Set-Content $xml
              }
 
