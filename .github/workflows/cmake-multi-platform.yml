@@ -12,6 +12,8 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+   
+    - uses: actions/checkout@v3
     - name: wxWidget cache
       id: cache-wxwidget
       uses: actions/cache@v3
@@ -21,7 +23,6 @@ jobs:
         key: ${{ runner.os }}-wxwidgets-${{env.wx-tag-version}}
         restore-keys: ${{ runner.os }}-wxwidgets-${{env.wx-tag-version}}
     
-    - uses: actions/checkout@v3
     
     - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
       continue-on-error: true
