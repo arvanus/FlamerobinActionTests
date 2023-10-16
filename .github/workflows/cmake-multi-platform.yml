@@ -2,8 +2,7 @@ name: Build Flamerobin for Windows
 
 env: 
   wx-tag-version: v3.2.2.1
-  buildx86: false
-  buildx64: false
+  
 on:
   push:
     branches: [ "main", "dev" ]
@@ -49,43 +48,39 @@ jobs:
                (Get-Content $xml).replace("MultiThreadedDLL", "MultiThreaded") | Set-Content $xml
              }
 
-    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }} && ${{env.buildx86}}
+    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
       name: Build wxWidgets x86
       shell: cmd
       run: |
         "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" &&  msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=Win32
         
-    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }} && ${{env.buildx64}}
+    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
       name: Build wxWidgets x64
       shell: cmd
       run: | 
         "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
     - name: Generate CMake x86 project
-      if: ${{ steps.cache-cmake.outputs.cache-hit != 'true' }} && ${{env.buildx86}}
+      if: ${{ steps.cache-cmake.outputs.cache-hit != 'true' }}
       run: cmake -S .\ -B .\Build32 -A Win32 -DWXDIR=wxWidgets
       
     - name: Generate CMake x64 project
-      if: ${{ steps.cache-cmake.outputs.cache-hit != 'true' }} && ${{env.buildx64}}
+      if: ${{ steps.cache-cmake.outputs.cache-hit != 'true' }}
       run: cmake -S .\ -B .\Build64 -A x64 -DWXDIR=wxWidgets
       
     - name: Build Flamerobin x86
-      if:  ${{env.buildx86}}
       run: >
         cmake --build .\Build32 --config Release -j 8
         
     - name: Build Flamerobin x64
-      if:  ${{env.buildx64}}
       run: >
         cmake --build .\Build64 --config Release -j 8
 
     - name: Innosetup 
-      if:  ${{env.buildx86}}
       run: >
         ISCC.exe install\win32\FlameRobinSetup.iss
         
     - name: Innosetup64
-      if:  ${{env.buildx64}}
       run: >
         ISCC.exe install\win32\FlameRobinSetup64.iss
 
