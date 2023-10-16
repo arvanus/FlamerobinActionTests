@@ -39,7 +39,7 @@ jobs:
                (Get-Content $xml).replace("MultiThreadedDLL", "MultiThreaded") | Set-Content $xml
              }
 
-    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
+    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }} && false
       continue-on-error: true
       name: Build wxWidgets x86
       shell: cmd
