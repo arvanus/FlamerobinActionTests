@@ -42,16 +42,14 @@ jobs:
     - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
       name: Build wxWidgets x86
       shell: cmd
-      run: ^
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" &&
-        msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=Win32
+      run: |
+        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" &&  msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=Win32
         
     #- if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
     - name: Build wxWidgets x64
       shell: cmd
-      run: ^
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" &&
-        msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
+      run: | 
+        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
         
     - name: Build Flamerobin x86
       run: ^
