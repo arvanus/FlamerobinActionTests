@@ -72,8 +72,7 @@ jobs:
               # Entrar na terceira pasta
               Set-Location $terceiraPasta.FullName
               dir
-              "C:\Program Files\Git\usr\bin\tar.exe" -xf cache.tzst -P -C D:/a/FlamerobinActionTests/FlamerobinActionTests --force-local --use-compress-program "zstvd -d"
-          
+             
               # Agora você está na terceira pasta e pode executar seu comando
           } else {
               Write-Host "Não há pelo menos três pastas no diretório atual."
