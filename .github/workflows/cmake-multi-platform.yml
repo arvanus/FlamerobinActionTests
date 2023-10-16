@@ -58,6 +58,7 @@ jobs:
 
     - name: Build Flamerobin x86
       run: >
+        dir &&
         dir wxWidgets &&
         dir wxWidgets\lib &&
         cmake -S .\ -B .\Build32 -A Win32 -DWXDIR=wxWidgets &&
