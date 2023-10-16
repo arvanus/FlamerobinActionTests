@@ -59,8 +59,26 @@ jobs:
       run: >
         dir &&
         dir .. &&
-        dir D:/a/_temp/ &&
-        "C:\Program Files\Git\usr\bin\tar.exe" -xvf D:/a/_temp/*/cache.tzst -P -C D:/a/FlamerobinActionTests/FlamerobinActionTests --force-local --use-compress-program "zstd -d"
+        dir D:/a/_temp/
+    - name: testa esquema
+      run: >
+          $folders = Get-ChildItem -Directory
+          
+          # Verificar se existem pelo menos três pastas
+          if ($folders.Count -ge 3) {
+              # Acessar a terceira pasta da lista
+              $terceiraPasta = $folders[2]
+          
+              # Entrar na terceira pasta
+              Set-Location $terceiraPasta.FullName
+              "C:\Program Files\Git\usr\bin\tar.exe" -xvf cache.tzst -P -C D:/a/FlamerobinActionTests/FlamerobinActionTests --force-local --use-compress-program "zstd -d"
+          
+              # Agora você está na terceira pasta e pode executar seu comando
+          } else {
+              Write-Host "Não há pelo menos três pastas no diretório atual."
+          }
+
+          
         
         
     - name: Build Flamerobin x86
