@@ -17,7 +17,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: |
-            ~/./wxWidgets
+            wxWidgets
         key: ${{ runner.os }}-wxwidgets-${{env.wx-tag-version}}
         restore-keys: ${{ runner.os }}-wxwidgets-${{env.wx-tag-version}}
     
