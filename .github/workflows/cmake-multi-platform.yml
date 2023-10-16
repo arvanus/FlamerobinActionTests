@@ -57,7 +57,7 @@ jobs:
 
     - name: look for folder
       run: >
-        dir
+        dir &&
         dir ..
         
     - name: Build Flamerobin x86
