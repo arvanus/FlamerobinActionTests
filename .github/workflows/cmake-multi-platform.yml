@@ -45,8 +45,8 @@ jobs:
       run: |
         "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" &&  msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=Win32
         
-    #- if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
-    - name: Build wxWidgets x64
+    - if: ${{ steps.cache-wxwidget.outputs.cache-hit != 'true' }}
+      name: Build wxWidgets x64
       shell: cmd
       run: | 
         "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
@@ -67,7 +67,7 @@ jobs:
         
     - name: Innosetup64
       run: >
-        ISCC.exe install\win32\FlameRobinSetup.iss
+        ISCC.exe install\win32\FlameRobinSetup64.iss
 
     - name: Upload installer
       uses: actions/upload-artifact@main
