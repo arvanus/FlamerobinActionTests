@@ -63,11 +63,11 @@ jobs:
 
     - name: Generate CMake x86 project
       if: ${{ steps.cache-cmake.outputs.cache-hit != 'true' }} && ${{env.buildx86}}
-      run: cmake -S .\ -B .\Build32 -A Win32 -DWXDIR=wxWidgets &&
+      run: cmake -S .\ -B .\Build32 -A Win32 -DWXDIR=wxWidgets
       
     - name: Generate CMake x64 project
       if: ${{ steps.cache-cmake.outputs.cache-hit != 'true' }} && ${{env.buildx64}}
-      run: cmake -S .\ -B .\Build64 -A x64 -DWXDIR=wxWidgets &&
+      run: cmake -S .\ -B .\Build64 -A x64 -DWXDIR=wxWidgets
       
     - name: Build Flamerobin x86
       if:  ${{env.buildx86}}
