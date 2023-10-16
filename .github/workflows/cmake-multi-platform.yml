@@ -60,7 +60,7 @@ jobs:
         dir &&
         dir .. &&
         dir D:/a/_temp/ &&
-        "C:\Program Files\Git\usr\bin\tar.exe" -xfv D:/a/_temp/*/cache.tzst -P -C D:/a/FlamerobinActionTests/FlamerobinActionTests --force-local --use-compress-program "zstd -d"
+        "C:\Program Files\Git\usr\bin\tar.exe" -xvf D:/a/_temp/*/cache.tzst -P -C D:/a/FlamerobinActionTests/FlamerobinActionTests --force-local --use-compress-program "zstd -d"
         
         
     - name: Build Flamerobin x86
