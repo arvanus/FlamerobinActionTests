@@ -55,8 +55,12 @@ jobs:
 #      run: |
 #        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" && msbuild.exe wxWidgets\build\msw\wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
-
+    - name: look for folder
+      run: >
+        dir
+        
     - name: Build Flamerobin x86
+      if: false
       run: >
         dir &&
         dir wxWidgets &&
@@ -70,6 +74,7 @@ jobs:
  #       cmake --build .\Build64 --config Release -j 8
 
     - name: Innosetup 
+      if: false
       run: >
         ISCC.exe install\win32\FlameRobinSetup.iss
         
@@ -77,8 +82,8 @@ jobs:
 #      run: >
 #        ISCC.exe install\win32\FlameRobinSetup.iss
 
-    - name: Upload installer
-      uses: actions/upload-artifact@main
-      with:
-          name: flamerobin-instaler
-          path: install/win32/output/flamerobin-*.exe
+#    - name: Upload installer
+#      uses: actions/upload-artifact@main
+#      with:
+#          name: flamerobin-instaler
+#          path: install/win32/output/flamerobin-*.exe
