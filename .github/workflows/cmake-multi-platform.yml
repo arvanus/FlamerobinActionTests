@@ -18,8 +18,6 @@ jobs:
       with:
         path: |
             ~/./wxWidgets
-#            ./build32
-#            ./build64
         key: ${{ runner.os }}-wxwidgets-${{env.wx-tag-version}}
         restore-keys: ${{ runner.os }}-wxwidgets-${{env.wx-tag-version}}
     
