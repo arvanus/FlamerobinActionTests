@@ -4,9 +4,9 @@ env:
   wx-tag-version: v3.2.2.1
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build:
@@ -61,17 +61,18 @@ jobs:
         cmake -S .\ -B .\Build32 -A Win32 -DWXDIR=wxWidgets &&
         cmake --build .\Build32 --config Release -j 8
         
-#    - name: Build Flamerobin x64
-#      run: >
-#        cmake -S .\ -B .\Build64 -A x64 -DWXDIR=wxWidgets &&
-#        cmake --build .\Build64 --config Release -j 8
+    - name: Build Flamerobin x64
+      run: >
+        cmake -S .\ -B .\Build64 -A x64 -DWXDIR=wxWidgets &&
+        cmake --build .\Build64 --config Release -j 8
 
     - name: Innosetup 
       run: >
         ISCC.exe install\win32\FlameRobinSetup.iss
- #   - name: Innosetup64
- #     run: >
- #       ISCC.exe install\win32\FlameRobinSetup.iss
+        
+    - name: Innosetup64
+      run: >
+        ISCC.exe install\win32\FlameRobinSetup.iss
 
     - name: Upload installer
       uses: actions/upload-artifact@main
